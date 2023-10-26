@@ -1,0 +1,26 @@
+---
+
+################################################################################
+# settings
+
+default:
+  tags:
+    - linux
+    - shell
+    - build
+
+stages:
+  - build
+  - deploy
+
+################################################################################
+# jobs
+
+blazegraph-image:
+  stage: build
+  script:
+    - cd docker
+    - docker build -t ${CI_REGISTRY_IMAGE}:latest .
+    - docker push ${CI_REGISTRY_IMAGE}:latest
+
+# EOF ##########################################################################
