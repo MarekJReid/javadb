@@ -19,14 +19,15 @@ stages:
 
 blazegraph-image:
   stage: build
-  image: openjdk:11  # Use an image with JDK installed
   script:
+    - apk add --no-cache openjdk11  # Install JDK
     - keytool -keystore keystore -alias jetty -genkey -keyalg RSA
     - cp keystore docker/keystore/etc
     - ls docker
     - cd docker
     - docker build -t ${CI_REGISTRY_IMAGE}:latest .
     - docker push ${CI_REGISTRY_IMAGE}:latest
+
 
 
 
