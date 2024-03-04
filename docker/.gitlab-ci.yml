@@ -17,15 +17,24 @@ stages:
 ################################################################################
 # jobs
 
+
 generate_keystore:
   image: openjdk:11-jdk  # Use an image with JDK installed
+  stage: generate_keystore
   script:
     - echo "Java version:" && java -version  # Confirm Java is available
     - echo "Current working directory:" && pwd  # Show current directory
-    - echo "Generating keystore..." 
+    - echo "Generating keystore..."
+    # - keytool -genkeypair -alias jetty -keyalg RSA -keystore keystore -storepass changeit -keypass changeit -dname "CN=example.com, OU=Example, O=Example, L=City, S=State, C=US" -validity 365
+  artifacts:
+    paths:
+      - keystore
+
 
 blazegraph-image:
   stage: build
+  dependencies:
+    - generate_keystore  # Ensure this job depends on the generate_keystore job
   script:
     - sudo apt-get update && apt-get install -y openjdk-11-jdk  # Install JDK
     - keytool -keystore keystore -alias jetty -genkey -keyalg RSA
