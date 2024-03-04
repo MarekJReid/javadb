@@ -16,16 +16,17 @@ stages:
 ################################################################################
 # jobs
 
+
 blazegraph-image:
   stage: build
-  image: openjdk:11 #use java image as base for the job to be able to access the keytool java command
+  image: openjdk:11  # Use an image with JDK installed
   script:
-  # Generate keystore for SSL config 
     - keytool -keystore keystore -alias jetty -genkey -keyalg RSA
     - cp keystore docker/keystore/etc
     - ls docker
     - cd docker
     - docker build -t ${CI_REGISTRY_IMAGE}:latest .
     - docker push ${CI_REGISTRY_IMAGE}:latest
+
 
 # EOF ##########################################################################
