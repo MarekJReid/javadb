@@ -10,12 +10,19 @@ default:
     - build
 
 stages:
+  - generate_keystore
   - build
   - deploy
-
+  
 ################################################################################
 # jobs
 
+generate_keystore:
+  image: openjdk:11-jdk  # Use an image with JDK installed
+  script:
+    - echo "Java version:" && java -version  # Confirm Java is available
+    - echo "Current working directory:" && pwd  # Show current directory
+    - echo "Generating keystore..." 
 
 blazegraph-image:
   stage: build
