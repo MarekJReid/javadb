@@ -19,6 +19,10 @@ stages:
 blazegraph-image:
   stage: build
   script:
+  # Generate keystore for SSL config 
+    - keytool -keystore keystore -alias jetty -genkey -keyalg RSA
+    - cp keystore docker/keystore/etc
+    - ls docker
     - cd docker
     - docker build -t ${CI_REGISTRY_IMAGE}:latest .
     - docker push ${CI_REGISTRY_IMAGE}:latest
