@@ -18,6 +18,7 @@ stages:
 
 blazegraph-image:
   stage: build
+  image: openjdk:11 #use java image as base for the job to be able to access the keytool java command
   script:
   # Generate keystore for SSL config 
     - keytool -keystore keystore -alias jetty -genkey -keyalg RSA
