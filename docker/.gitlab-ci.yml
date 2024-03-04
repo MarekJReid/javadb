@@ -20,7 +20,7 @@ stages:
 blazegraph-image:
   stage: build
   script:
-    - apt-get update && apt-get install -y openjdk-11-jdk  # Install JDK
+    - sudo apt-get update && apt-get install -y openjdk-11-jdk  # Install JDK
     - keytool -keystore keystore -alias jetty -genkey -keyalg RSA
     - cp keystore docker/keystore/etc
     - ls docker
