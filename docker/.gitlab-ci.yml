@@ -8,7 +8,7 @@ default:
     - linux
     - shell
     - build
-
+    - docker
 stages:
   - generate_keystore
   - build
